@@ -1,24 +1,28 @@
-import ElectronicPigeon from "./ePigeonCourierServices.js"
+import ExternalServices from "./externalServices.js";
 
 import { flyInHeaderFooter } from "./flyInNutsAndBolts.js";
 //put in the header & footer
 flyInHeaderFooter();
 
 
-//This is with the new folder name
-let pigeon = new ElectronicPigeon();
-let enteredSearch = "cars";
-let bookId = "Zkp1AwAAQBAJ";
-//can use this to increment to the next 40 if 
-//desired result is not found in the first 40
-let searchBatch = 0;
+const externalServices = new ExternalServices()
 
 
-let pigeonResult = pigeon.bookListDeliveryPigeon40(enteredSearch, searchBatch);
-console.log(pigeonResult)
-
-let book = pigeon.pigeonBookDeliveryById(bookId);
-console.log(book);
-
+function getBookById() {
+    let book = externalServices.findBookById("Prj1iTmPJn4C");
+    console.log(book)
+}
 
 
+function searchBar() {
+    const search = document.querySelector("#searchBar");
+    // console.log(search)
+
+    search.addEventListener("search", () => {
+        let results = externalServices.getSearchResults(search.value)
+        console.log(results)
+    })
+}
+
+searchBar();
+getBookById();
